@@ -1,0 +1,25 @@
+#!/bin/bash
+
+
+ENVIRONMENT=${1:-'DEVELOPMENT'}
+USERNAME=${2:-''}
+PASSWORD=${3:-''}
+COMMAND=${4:-''}
+
+source "$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )/.base"
+
+cd "${PROJECT_LOCATION}"
+echo
+echo "RUNNING DOCKER CONTAINER"
+echo "--------------------------------------------------------------------------------"
+if [ -z "$COMMAND" ]; then
+	docker run -i -p 127.0.0.1:80:80 -p 127.0.0.1:8888:8888 -e "APP_ENV=${ENVIRONMENT}" -e "BASIC_AUTH_USERNAME=${USERNAME}" -e "BASIC_AUTH_USERNAME=${PASSWORD}" -t "${PROJECT_REPO}" "${COMMAND}"
+	RETURN=$?
+else
+	docker run -d -p 127.0.0.1:80:80 -e "APP_ENV=${ENVIRONMENT}" -e "BASIC_AUTH_USERNAME=${USERNAME}" -e "BASIC_AUTH_USERNAME=${PASSWORD}" -t "${PROJECT_REPO}"
+	RETURN=$?
+fi
+echo
+cd "${CURRDIR}"
+
+exit $RETURN

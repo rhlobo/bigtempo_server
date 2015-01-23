@@ -1,0 +1,16 @@
+pep8
+nose
+coverage
+
+sh
+argh
+requests
+dateutils
+
+bigtempo
+pandas
+
+Flask
+Flask-Script
+Flask-BasicAuth
+Flask-SQLAlchemy
