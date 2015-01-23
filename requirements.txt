@@ -11,6 +11,5 @@ bigtempo
 pandas
 
 Flask
-Flask-Script
 Flask-BasicAuth
 Flask-SQLAlchemy

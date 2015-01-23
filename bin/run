@@ -1,0 +1,15 @@
+#!/bin/bash
+
+
+source "$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )/.base"
+
+cd "${PROJECT_LOCATION}"
+echo
+echo "RUNNING APPLLICATION LOCALLY"
+echo "--------------------------------------------------------------------------------"
+python ./wsgi.py
+RETURN=$?
+echo
+cd "${CURRDIR}"
+
+exit $RETURN

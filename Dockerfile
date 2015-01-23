@@ -12,21 +12,18 @@ RUN rm -rf /etc/service/sshd /etc/my_init.d/00_regen_ssh_host_keys.sh
 
 
 # INSTALLING SERVICES
-RUN apt-get --quiet update
-## Installing base software
-RUN apt-get install --yes --quiet build-essential git
-RUN apt-get install --yes --quiet software-properties-common python-software-properties
-## Installing PYTHON
-RUN apt-get install --yes --quiet python python-dev python-setuptools
-RUN apt-get install --yes --quiet python-pip
-## Installing NGINX
-RUN add-apt-repository --yes ppa:nginx/stable
-RUN apt-get --quiet update
-RUN apt-get install --yes --quiet nginx
-## Installing SUPERVISOR
-RUN apt-get install --yes --quiet supervisor
-#RUN apt-get install --yes --quiet sqlite3
-RUN pip install uwsgi
+RUN add-apt-repository --yes ppa:nginx/stable &&\
+	apt-get --quiet update &&\
+	apt-get install --yes --quiet build-essential \
+		git \
+		software-properties-common \
+		python-software-properties \
+		python python-dev python-setuptools \
+		python-pip \
+		nginx \
+		supervisor \
+		sqlite3 &&\
+	pip install uwsgi
 
 
 # COPY APP FILES
@@ -37,10 +34,10 @@ ADD . /home/docker/files/
 ## APP CONFIGURATION
 ENV PATH /home/docker/files/bin:$PATH
 ## Configurating NGINX
-RUN echo "daemon off;" >> /etc/nginx/nginx.conf
-RUN rm -Rf /etc/nginx/sites-enabled/default
-RUN ln -s /home/docker/files/infra/nginx-app.conf /etc/nginx/sites-enabled/
-RUN ln -s /home/docker/files/infra/uwsgi_params /etc/nginx/sites-enabled/
+RUN echo "daemon off;" >> /etc/nginx/nginx.conf \
+	rm -Rf /etc/nginx/sites-enabled/default &&\
+	ln -s /home/docker/files/infra/nginx-app.conf /etc/nginx/sites-enabled/ &&\
+	ln -s /home/docker/files/infra/uwsgi_params /etc/nginx/sites-enabled/
 ## Configurating SUPERVISOR
 RUN ln -s /home/docker/files/infra/supervisor-app.conf /etc/supervisor/conf.d/
 ## Configurating application dependencies

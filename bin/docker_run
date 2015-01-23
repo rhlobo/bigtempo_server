@@ -13,9 +13,11 @@ echo
 echo "RUNNING DOCKER CONTAINER"
 echo "--------------------------------------------------------------------------------"
 if [ -z "$COMMAND" ]; then
+	echo "Running command: $COMMAND"
 	docker run -i -p 127.0.0.1:80:80 -p 127.0.0.1:8888:8888 -e "APP_ENV=${ENVIRONMENT}" -e "BASIC_AUTH_USERNAME=${USERNAME}" -e "BASIC_AUTH_USERNAME=${PASSWORD}" -t "${PROJECT_REPO}" "${COMMAND}"
 	RETURN=$?
 else
+	echo "Starting default service"
 	docker run -d -p 127.0.0.1:80:80 -e "APP_ENV=${ENVIRONMENT}" -e "BASIC_AUTH_USERNAME=${USERNAME}" -e "BASIC_AUTH_USERNAME=${PASSWORD}" -t "${PROJECT_REPO}"
 	RETURN=$?
 fi

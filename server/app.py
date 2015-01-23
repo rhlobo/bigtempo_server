@@ -1,7 +1,6 @@
 import sys
 
 import flask
-import flask.ext.script
 import flask.ext.basicauth
 import flask.ext.sqlalchemy
 import flask.ext.bigtempo
@@ -40,7 +39,6 @@ if not _flask.config['BASIC_AUTH_USERNAME'] or not _flask.config['BASIC_AUTH_PAS
 # INITIALIZING EXTENSIONS AND SERVICES
 # Extensions
 basic_auth = flask.ext.basicauth.BasicAuth(_flask)
-script_manager = flask.ext.script.Manager(_flask)
 persistence = flask.ext.sqlalchemy.SQLAlchemy(_flask)
 datastore = flask.ext.bigtempo.DatastoreAPI(_flask, persistence.engine)
 
