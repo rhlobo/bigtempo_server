@@ -2,7 +2,6 @@ pep8
 nose
 coverage
 
-sh
 argh
 requests
 dateutils

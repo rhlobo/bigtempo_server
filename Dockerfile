@@ -34,14 +34,15 @@ ADD . /home/docker/files/
 ## APP CONFIGURATION
 ENV PATH /home/docker/files/bin:$PATH
 ## Configurating NGINX
-RUN echo "daemon off;" >> /etc/nginx/nginx.conf \
+RUN echo "daemon off;" >> /etc/nginx/nginx.conf &&\
 	rm -Rf /etc/nginx/sites-enabled/default &&\
 	ln -s /home/docker/files/infra/nginx-app.conf /etc/nginx/sites-enabled/ &&\
 	ln -s /home/docker/files/infra/uwsgi_params /etc/nginx/sites-enabled/
 ## Configurating SUPERVISOR
 RUN ln -s /home/docker/files/infra/supervisor-app.conf /etc/supervisor/conf.d/
 ## Configurating application dependencies
-RUN pip install -r /home/docker/files/requirements.txt
+RUN pip install -r /home/docker/files/requirements.txt &&\
+	pip install flask-bigtempo
 
 
 # SERVICE INITIALIZATION

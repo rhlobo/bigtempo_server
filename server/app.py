@@ -5,8 +5,6 @@ import flask.ext.basicauth
 import flask.ext.sqlalchemy
 import flask.ext.bigtempo
 
-
-import data
 import config.env as env
 import config.logs as logs
 
