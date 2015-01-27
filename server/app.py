@@ -8,6 +8,8 @@ import flask.ext.bigtempo
 import config.env as env
 import config.logs as logs
 
+import datasources
+
 
 # CONFIGURING LOGGING
 logs.default_config()
@@ -35,10 +37,15 @@ if not _flask.config['BASIC_AUTH_USERNAME'] or not _flask.config['BASIC_AUTH_PAS
 
 
 # INITIALIZING EXTENSIONS AND SERVICES
-# Extensions
+# Flask Extensions
 basic_auth = flask.ext.basicauth.BasicAuth(_flask)
 persistence = flask.ext.sqlalchemy.SQLAlchemy(_flask)
-datastore = flask.ext.bigtempo.DatastoreAPI(_flask, persistence.engine)
+datastore_webapi = flask.ext.bigtempo.DatastoreAPI(_flask, persistence.engine)
+bigtempo_webapi = flask.ext.bigtempo.BigtempoAPI(_flask, datasources.engine)
+
+# Bigtempo datasources
+datasources.load(datastore=datastore_webapi)
+from datasources import *
 
 
 # SETTING THE APPLICATION UP
