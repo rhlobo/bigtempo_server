@@ -3,7 +3,8 @@ from ..app import persistence as db, restless_webapis, flask_instance
 
 tags = db.Table('tags',
                 db.Column('tag_id', db.String(32), db.ForeignKey('tag.id')),
-                db.Column('product_id', db.String(32), db.ForeignKey('product.id')))
+                db.Column('product_id', db.String(32), db.ForeignKey('product.id')),
+                db.Column('product_retailer', db.String(32), db.ForeignKey('product.retailer_id')))
 
 
 class Tag(db.Model):
