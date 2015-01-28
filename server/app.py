@@ -1,6 +1,7 @@
 import flask
 import flask.ext.basicauth
 import flask.ext.sqlalchemy
+import flask.ext.restless
 import flask.ext.bigtempo
 import flask.ext.session
 
@@ -38,6 +39,7 @@ auth.validate_preconditions(_flask)
 session_mngr = flask.ext.session.Session(_flask)
 basic_auth = flask.ext.basicauth.BasicAuth(_flask)
 persistence = flask.ext.sqlalchemy.SQLAlchemy(_flask)
+restless_webapis = flask.ext.restless.APIManager(_flask, flask_sqlalchemy_db=persistence)
 datastore_webapi = flask.ext.bigtempo.DatastoreAPI(_flask, persistence.engine)
 bigtempo_webapi = flask.ext.bigtempo.BigtempoAPI(_flask, datasources.engine)
 
@@ -57,3 +59,9 @@ def index():
     .register('REMOTE_DATA_SOURCE1'))
 
 from datasources import *
+
+# Domain modules
+from domain import *
+
+# Database tables
+persistence.create_all()

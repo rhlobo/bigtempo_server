@@ -11,5 +11,6 @@ pandas
 
 Flask
 Flask-BasicAuth
-Flask-SQLAlchemy
 Flask-Session
+Flask-SQLAlchemy
+Flask-Restless
