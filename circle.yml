@@ -21,10 +21,17 @@ test:
 
 
 deployment:
-  hub:
+  server:
     branch: master
     commands:
       - docker login -e $DOCKER_EMAIL -u $DOCKER_USER -p $DOCKER_PASS
       - docker push rhlobo/bigtempo_server:latest
       - docker tag rhlobo/bigtempo_server:latest rhlobo/bigtempo_server:$CIRCLE_SHA1
       - docker push rhlobo/bigtempo_server:$CIRCLE_SHA1
+  marketaware:
+    branch: mercado
+    commands:
+      - docker login -e $DOCKER_EMAIL -u $DOCKER_USER -p $DOCKER_PASS
+      - docker push rhlobo/marketaware:latest
+      - docker tag rhlobo/marketaware:latest rhlobo/marketaware:$CIRCLE_SHA1
+      - docker push rhlobo/marketaware:$CIRCLE_SHA1
