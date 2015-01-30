@@ -5,4 +5,4 @@ HOST = '0.0.0.0'
 PERMANENT_SESSION_LIFETIME = 60000000
 
 # FLASK-SQLALCHEMY
-SQLALCHEMY_DATABASE_URI = 'sqlite:///data.db'
+SQLALCHEMY_DATABASE_URI = 'sqlite:///data/production.sqlite'
