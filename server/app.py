@@ -1,5 +1,3 @@
-import sys
-
 import flask
 import flask.ext.basicauth
 import flask.ext.sqlalchemy
@@ -8,6 +6,7 @@ import flask.ext.bigtempo
 import config.env as env
 import config.logs as logs
 
+import auth
 import datasources
 
 
@@ -30,10 +29,7 @@ flask_instance.config.from_object(env.settings('FLASK_CONFIG_OBJECT'))
 
 # VALIDATING PRECONDITIONS
 # Basic Auth environment variables
-if not _flask.config['BASIC_AUTH_USERNAME'] or not _flask.config['BASIC_AUTH_PASSWORD']:
-    print ('Setting non-empty BASIC_AUTH_USERNAME and BASIC_AUTH_PASSWORD '
-           'environment variables is mandatory. Exiting...')
-    sys.exit()
+auth.validate_preconditions(_flask)
 
 
 # INITIALIZING EXTENSIONS AND SERVICES
@@ -43,10 +39,6 @@ persistence = flask.ext.sqlalchemy.SQLAlchemy(_flask)
 datastore_webapi = flask.ext.bigtempo.DatastoreAPI(_flask, persistence.engine)
 bigtempo_webapi = flask.ext.bigtempo.BigtempoAPI(_flask, datasources.engine)
 
-# Bigtempo datasources
-datasources.load(datastore=datastore_webapi)
-from datasources import *
-
 
 # SETTING THE APPLICATION UP
 # Main Routes
@@ -54,3 +46,7 @@ from datasources import *
 @basic_auth.required
 def index():
     return _flask.send_static_file('index.html')
+
+# Bigtempo datasources
+datasources.set_local_store(datastore=datastore_webapi)
+from datasources import *
