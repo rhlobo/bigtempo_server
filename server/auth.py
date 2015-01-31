@@ -14,6 +14,3 @@ def validate_preconditions(app):
         print ('Setting non-empty BASIC_AUTH_USERNAME and BASIC_AUTH_PASSWORD '
                'environment variables is mandatory. Exiting...')
         sys.exit()
-
-
-# TODO: Master: Configure basic auth to APIs (or to everything)

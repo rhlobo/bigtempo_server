@@ -2,6 +2,7 @@ import flask
 import flask.ext.basicauth
 import flask.ext.sqlalchemy
 import flask.ext.bigtempo
+import flask.ext.session
 
 import config.env as env
 import config.logs as logs
@@ -34,6 +35,7 @@ auth.validate_preconditions(_flask)
 
 # INITIALIZING EXTENSIONS AND SERVICES
 # Flask Extensions
+session_mngr = flask.ext.session.Session(_flask)
 basic_auth = flask.ext.basicauth.BasicAuth(_flask)
 persistence = flask.ext.sqlalchemy.SQLAlchemy(_flask)
 datastore_webapi = flask.ext.bigtempo.DatastoreAPI(_flask, persistence.engine)
