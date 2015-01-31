@@ -50,5 +50,10 @@ def index():
     return _flask.send_static_file('index.html')
 
 # Bigtempo datasources
-datasources.set_local_store(datastore=datastore_webapi)
+(bigtempo_webapi.create_datasource_factory(datastore_webapi)
+    .register('LOCAL_DATA_SOURCE1')
+    .register('LOCAL_DATA_SOURCE2'))
+(bigtempo_webapi.create_datasource_factory('http://remotehost:5000')
+    .register('REMOTE_DATA_SOURCE1'))
+
 from datasources import *

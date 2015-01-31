@@ -20,5 +20,3 @@ del module
 def set_local_store(datastore=None):
     global store
     store = datastore
-
-# TODO: Master: Create add_local_store and add_remote_store which you can register datasources
